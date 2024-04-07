@@ -1,12 +1,13 @@
 import './App.css'
 import Navbar from './components/Navbar'
+import Manager from './components/manager/Manager'
 
 function App() {
 
   return (
    <>
    <Navbar/>
-   <div className=''>My UI</div>
+   <Manager/>
    </>
   )
 }
