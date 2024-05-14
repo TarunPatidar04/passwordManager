@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 const Manager = () => {
   const ref = useRef();
+  const passwordRef = useRef();
   const [form, setform] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setpasswordArray] = useState([]);
 
@@ -13,10 +14,13 @@ const Manager = () => {
   }, []);
 
   const showPassword = () => {
+    passwordRef.current.type="text";
     if (ref.current.src.includes("/public/view.png")) {
       ref.current.src = "/public/hide.png";
+      passwordRef.current.type="password";
     } else {
       ref.current.src = "/public/view.png";
+      passwordRef.current.type="text";
     }
   };
 
@@ -62,12 +66,13 @@ const Manager = () => {
             />
             <div className="relative w-full">
               <input
-                type="text"
+                type="password"
                 className="rounded-full border border-green-500 w-full p-4 py-1"
                 name="password"
                 placeholder="Enter Password"
                 value={form.password}
                 onChange={handleChange}
+                ref={passwordRef}
               />
               <span
                 className="absolute right-[4px] top-[5px] cursor-pointer"
