@@ -33,11 +33,9 @@ const Manager = () => {
       JSON.stringify([...passwordArray, { ...form, id: uuid() }])
     );
     setform({ site: "", username: "", password: "" });
-    console.log([...passwordArray, form]);
   };
 
   const deletePassword = (id) => {
-    console.log(id);
     setpasswordArray(passwordArray.filter((item) => item.id !== id));
     localStorage.setItem(
       "password",
@@ -46,7 +44,6 @@ const Manager = () => {
   };
 
   const editPassword = (id) => {
-    console.log("edit item : ", id);
     setform(passwordArray.filter((item) => item.id === id)[0]);
     setpasswordArray(passwordArray.filter((item) => item.id !== id));
   };
@@ -81,7 +78,6 @@ const Manager = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
       <ToastContainer />
       <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"></div>
       <div className="bg-slate-50 mycontainer">
