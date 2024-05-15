@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-
+import { v4 as uuid } from "uuid";
 import "react-toastify/dist/ReactToastify.css";
 const Manager = () => {
   const ref = useRef();
@@ -27,11 +27,29 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    setpasswordArray([...passwordArray, form]);
-    localStorage.setItem("password", JSON.stringify([...passwordArray, form]));
+    setpasswordArray([...passwordArray, { ...form, id: uuid() }]);
+    localStorage.setItem(
+      "password",
+      JSON.stringify([...passwordArray, { ...form, id: uuid() }])
+    );
+    setform({ site: "", username: "", password: "" });
     console.log([...passwordArray, form]);
   };
 
+  const deletePassword = (id) => {
+    console.log(id);
+    setpasswordArray(passwordArray.filter((item) => item.id !== id));
+    localStorage.setItem(
+      "password",
+      JSON.stringify(passwordArray.filter((item) => item.id !== id))
+    );
+  };
+
+  const editPassword = (id) => {
+    console.log("edit item : ", id);
+    setform(passwordArray.filter((item) => item.id === id)[0]);
+    setpasswordArray(passwordArray.filter((item) => item.id !== id));
+  };
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
@@ -142,6 +160,7 @@ const Manager = () => {
                   <th className="py-2">Site</th>
                   <th className="py-2">username</th>
                   <th className="py-2">Password</th>
+                  <th className="py-2">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-green-100">
@@ -207,6 +226,38 @@ const Manager = () => {
                               height: "18px",
                               top: "5px",
                               left: "4px",
+                            }}
+                          ></lord-icon>
+                        </span>
+                      </td>
+                      <td className=" py-2 border border-white text-center w-32">
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => editPassword(item.id)}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/tzdwqlbp.json"
+                            trigger="hover"
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              top: "5px",
+                              left: "4px",
+                            }}
+                          ></lord-icon>
+                        </span>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => deletePassword(item.id)}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/wpyrrmcq.json"
+                            trigger="hover"
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              top: "5px",
+                              left: "18px",
                             }}
                           ></lord-icon>
                         </span>
