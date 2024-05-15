@@ -7,20 +7,19 @@ const Manager = () => {
 
   useEffect(() => {
     let password = localStorage.getItem("password");
-    let passwordArray;
     if (password) {
       setpasswordArray(JSON.parse(password));
     }
   }, []);
 
   const showPassword = () => {
-    passwordRef.current.type="text";
+    passwordRef.current.type = "text";
     if (ref.current.src.includes("/public/view.png")) {
       ref.current.src = "/public/hide.png";
-      passwordRef.current.type="password";
+      passwordRef.current.type = "password";
     } else {
       ref.current.src = "/public/view.png";
-      passwordRef.current.type="text";
+      passwordRef.current.type = "text";
     }
   };
 
@@ -32,6 +31,11 @@ const Manager = () => {
 
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const copyText = (text) => {
+    alert("Copy to clickBoard : " + text);
+    navigator.clipboard.writeText(text);
   };
   return (
     <>
@@ -115,17 +119,71 @@ const Manager = () => {
                 </tr>
               </thead>
               <tbody className="bg-green-100">
-                {passwordArray.map((item,index) => {
+                {passwordArray.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td className=" py-2 border border-white text-center w-32">
-                        <a href={item.site} target="_blank">{item.site}</a>
+                        <a href={item.site} target="_blank">
+                          {item.site}
+                        </a>
+                        <span
+                          className="cursor-pointer lordCopyIcon"
+                          onClick={() => {
+                            copyText(item.site);
+                          }}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/lyrrgrsl.json"
+                            trigger="hover"
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              top: "5px",
+                              left: "4px",
+                            }}
+                          ></lord-icon>
+                        </span>
                       </td>
                       <td className=" py-2 border border-white text-center w-32">
                         {item.username}
+                        <span
+                          className="cursor-pointer lordCopyIcon"
+                          onClick={() => {
+                            copyText(item.username);
+                          }}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/lyrrgrsl.json"
+                            trigger="hover"
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              top: "5px",
+                              left: "4px",
+                            }}
+                          ></lord-icon>
+                        </span>
                       </td>
                       <td className=" py-2 border border-white text-center w-32">
                         {item.password}
+
+                        <span
+                          className="cursor-pointer lordCopyIcon"
+                          onClick={() => {
+                            copyText(item.password);
+                          }}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/lyrrgrsl.json"
+                            trigger="hover"
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              top: "5px",
+                              left: "4px",
+                            }}
+                          ></lord-icon>
+                        </span>
                       </td>
                     </tr>
                   );
